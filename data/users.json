@@ -1,0 +1,53 @@
+[
+    {
+        "username": "test2",
+        "email": "12344@123",
+        "password": "$2b$12$PR.hL7jAIsCilcwalpcN1Ol0CTWZ0hTs4nArpfFZmQalHZOcn32YK",
+        "bonus_card": {
+            "id": "d9a93567-a9a7-4e50-aa12-9a5a9232d334",
+            "points": 1000
+        },
+        "cart": {
+            "gpu_gpu_2": 1,
+            "cpu_cpu_1": 1
+        }
+    },
+    {
+        "username": "test5",
+        "email": "124@1234",
+        "password": "$2b$12$hMt0IcSugKVvDQVY3bRSAOdZF0C52DfBnaVaeyWAE2eCVg/SJFxT6",
+        "bonus_card": {
+            "id": "f25f9525-c53a-4eb0-adc9-1398a974d3c1",
+            "points": 20650
+        },
+        "cart": {
+            "gpu_gpu_2": 1,
+            "cpu_cpu_1": 1,
+            "build_build_1": 1
+        }
+    },
+    {
+        "username": "pasha1",
+        "email": "123@pasha",
+        "password": "$2b$12$RehmZLpqtG2Ag767jrYuqe/iWn0FpgAU8ZhoEzKQYBlwTYHR8leHm",
+        "bonus_card": {
+            "id": "72725708-d05f-4970-8b9e-9ca2908b768a",
+            "points": 1000
+        },
+        "cart": {
+            "gpu_gpu_1": 1,
+            "build_build_4": 1,
+            "build_build_1": 1
+        }
+    },
+    {
+        "username": "test10",
+        "email": "123@1213",
+        "password": "$2b$12$jr7iy/YNeaehrqe5aY7NQO8E/rTnubU9eE4ifxTJayrWEuzpJXcbe",
+        "bonus_card": {
+            "id": "3c8238e7-4b64-4114-a4c1-ce69df0e450a",
+            "points": 1000
+        },
+        "cart": {}
+    }
+]

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Корпуса{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-3">
+        <a href="{{ url_for('home.home') }}" class="btn btn-outline-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door me-1" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+            </svg>
+            На главную
+        </a>
+    </div>
+
+    <h2 class="text-center mb-4" style="margin-left: 300px;">Корпуса</h2>
+
+    <div class="row">
+        <!-- Форма фильтра -->
+        <div class="col-md-3 mb-4">
+            <form method="get">
+                <h5>Цена</h5>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="min_price" placeholder="От" value="{{ request.args.get('min_price', '') }}">
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="max_price" placeholder="До" value="{{ request.args.get('max_price', '') }}">
+                </div>
+
+                <h5>Цвет</h5>
+                {% set all_colors = ['Черный', 'Белый'] %}
+                {% for color in all_colors %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="color" value="{{ color }}"
+                               id="color_{{ loop.index }}"
+                               {% if color in request.args.getlist('color') %}checked{% endif %}>
+                        <label class="form-check-label" for="color_{{ loop.index }}">
+                            {{ color }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <h5 class="mt-3">Форм-фактор</h5>
+                {% set all_form_factors = ['Midi-Tower', 'Full-Tower'] %}
+                {% for ff in all_form_factors %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="form_factor" value="{{ ff }}"
+                               id="ff_{{ loop.index }}"
+                               {% if ff in request.args.getlist('form_factor') %}checked{% endif %}>
+                        <label class="form-check-label" for="ff_{{ loop.index }}">
+                            {{ ff }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary mt-3">Применить фильтр</button>
+            </form>
+        </div>
+
+        <!-- Список товаров -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for case in cases %}
+                    {% set specs %}
+                    <ul class="list-unstyled">
+                        <li><strong>Цвет:</strong> {{ case.color }}</li>
+                        <li><strong>Форм-фактор:</strong> {{ case.form_factor }}</li>
+                        <li><strong>Размер:</strong> {{ case.size }}</li>
+                    </ul>
+                    {% endset %}
+
+                    {% with
+                        id=case.id,
+                        name=case.name,
+                        price=case.price,
+                        images=case.images,
+                        specs=specs,
+                        product_type='case',
+                        in_cart=case.id in cart_ids
+                    %}
+                        {% include "base_product.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

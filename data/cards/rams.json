@@ -1,0 +1,38 @@
+[
+    {
+        "id": "ram_1",
+        "name": "ADATA XPG SPECTRIX D50 RGB",
+        "price": 6899,
+        "capacity": "32GB",
+        "type": "DDR4",
+        "speed": 3600,
+        "images": ["ram1.jpg", "ram11.jpg", "ram111.jpg"]
+    },
+    {
+        "id": "ram_2",
+        "name": "Patriot Viper Steel SPA397C890",
+        "price": 3590,
+        "capacity": "16GB",
+        "type": "DDR4",
+        "speed": 3200,
+        "images": ["ram2.jpg", "ram22.jpg", "ram222.jpg"]
+    },
+    {
+        "id": "ram_3",
+        "name": "Kingston Fury Beast KF432C449",
+        "price": 6390,
+        "capacity": "32GB",
+        "type": "DDR4",
+        "speed": 3200,
+        "images": ["ram3.jpg", "ram33.jpg", "ram333.jpg"]
+    },
+    {
+        "id": "ram_4",
+        "name": "Patriot Viper Venom PVV532G56",
+        "price": 8990,
+        "capacity": "32GB",
+        "type": "DDR5",
+        "speed": 5600,
+        "images": ["ram4.jpg", "ram44.jpg", "ram444.jpg"]
+    }
+]

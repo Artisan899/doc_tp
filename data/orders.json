@@ -1,0 +1,37 @@
+[
+    {
+        "id": "f0ac545e-ea97-403c-9d8b-86871a2ebc6b",
+        "user_email": "124@1234",
+        "full_name": "Мельник Ярослав Павлович",
+        "phone": "+7 (981) 817-83-65",
+        "address": "Пушкин, улица Вячеслава Шишкова, 16, кв 64",
+        "total_amount": 45754.0,
+        "bonus_earned": 20650,
+        "bonus_spent": 91916,
+        "delivery_date": "07-06-2025 с 12:00 до 20:00",
+        "items": [
+            {
+                "type": "gpu",
+                "id": "gpu_2",
+                "name": "MSI NVIDIA GeForce RTX 4060TI",
+                "price": 49590.0,
+                "quantity": 1
+            },
+            {
+                "type": "build",
+                "id": "build_1",
+                "name": "Компьютер BLOODY BD-PC CH61C1",
+                "price": 79990,
+                "quantity": 1
+            },
+            {
+                "type": "cpu",
+                "id": "cpu_1",
+                "name": "AMD Ryzen 5 5600",
+                "price": 8090,
+                "quantity": 1
+            }
+        ],
+        "order_date": "24-05-2025 22:21:57"
+    }
+]

@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-3">
+        <a href="{{ url_for('cart.cart') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Вернуться в корзину
+        </a>
+    </div>
+
+    <h2 class="text-center mb-4">Оформление заказа</h2>
+
+    <form method="POST" action="{{ url_for('order.payment') }}">
+        <!-- Блок 1: Контактная информация -->
+        <div class="card mb-4 rounded-3">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">1. Контактная информация</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="full_name" class="form-label">ФИО</label>
+                    <input type="text" class="form-control rounded-3" id="full_name" name="full_name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label">Номер телефона</label>
+                        <input type="tel" class="form-control rounded-3" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Эл. почта</label>
+                        <input type="email" class="form-control rounded-3" id="email" name="email" value="{{ user.email }}" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Адрес доставки</label>
+                    <input type="text" class="form-control rounded-3" id="address" name="address" placeholder="г. Москва, ул. Примерная, д. 1, кв. 1" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок 2: Платежная информация -->
+        <div class="card mb-4 rounded-3">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">2. Платежная информация</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="card_number" class="form-label">Номер банковской карты</label>
+                    <input type="text" class="form-control rounded-3" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="card_expiry" class="form-label">Дата действия</label>
+                        <input type="text" class="form-control rounded-3" id="card_expiry" name="card_expiry" placeholder="ММ/ГГ" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="card_cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control rounded-3" id="card_cvv" name="card_cvv" placeholder="123" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок 3: Информация о заказе -->
+        <div class="card mb-4 rounded-3">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">3. Информация о заказе</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="use_bonus" name="use_bonus"
+                       onchange="this.form.action+='?#bottom'; this.form.submit()"
+                       {% if use_bonus %}checked{% endif %}>
+                    <label class="form-check-label" for="use_bonus">
+                        <strong>Использовать бонусные баллы (максимум:</strong>
+                        {{ '{:,.0f}'.format(max_bonus_to_use).replace(',', ' ') }} ₽)
+
+                    </label>
+                </div>
+
+
+                <p><strong>Итоговая сумма к оплате:</strong> {{ '{:,.0f}'.format((total - bonus_to_use)).replace(',', ' ') }} ₽</p>
+                <p><strong>Начисляемые бонусы:</strong> {{ '{:,.0f}'.format(bonus_earned).replace(',', ' ') }} ₽ (15% от суммы)</p>
+                <p><strong>Дата и время доставки:</strong> {{ delivery_date }}</p>
+            </div>
+        </div>
+</div>
+
+        <!-- Блок 4: Подтверждение -->
+        <div class="card mb-4 rounded-3">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">4. Подтверждение заказа</h5>
+            </div>
+            <div class="card-body text-center">
+                <button type="submit" name="confirm_order" class="btn btn-primary btn-lg rounded-3">
+                    Подтвердить и оплатить заказ
+                </button>
+                <div id="bottom"></div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    .form-control {
+        transition: all 0.3s;
+    }
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .form-control::placeholder {
+        color: #6c757d;
+        opacity: 0.5;
+    }
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Добавляем маски для полей ввода
+    const phoneInput = document.getElementById('phone');
+    const cardNumberInput = document.getElementById('card_number');
+    const cardExpiryInput = document.getElementById('card_expiry');
+    const cardCvvInput = document.getElementById('card_cvv');
+
+    // Маска для телефона
+    phoneInput.addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 0) {
+            value = '+7 (' + value.substring(1, 4) + ') ' + value.substring(4, 7) + '-' + value.substring(7, 9) + '-' + value.substring(9, 11);
+        }
+        this.value = value;
+    });
+
+    // Маска для номера карты
+    cardNumberInput.addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, '');
+        value = value.match(/.{1,4}/g);
+        if (value) {
+            this.value = value.join(' ');
+        }
+    });
+
+    // Маска для срока действия карты
+    cardExpiryInput.addEventListener('input', function(e) {
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        this.value = value;
+    });
+
+    // Маска для CVV
+    cardCvvInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '').substring(0, 3);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Блоки питания{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-3">
+        <a href="{{ url_for('home.home') }}" class="btn btn-outline-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door me-1" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+            </svg>
+            На главную
+        </a>
+    </div>
+
+    <h2 class="text-center mb-4" style="margin-left: 300px;">Блоки питания</h2>
+
+    <div class="row">
+        <!-- Форма фильтра -->
+        <div class="col-md-3 mb-4">
+            <form method="get">
+                <h5>Цена</h5>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="min_price" placeholder="От" value="{{ request.args.get('min_price', '') }}">
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="max_price" placeholder="До" value="{{ request.args.get('max_price', '') }}">
+                </div>
+
+                <h5>Сертификат</h5>
+                {% set selected_certificates = request.args.getlist('certificate') %}
+                {% for cert in all_certificates %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="certificate" value="{{ cert }}"
+                               id="cert_{{ loop.index }}"
+                               {% if cert in selected_certificates %}checked{% endif %}>
+                        <label class="form-check-label" for="cert_{{ loop.index }}">
+                            {{ cert }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <h5 class="mt-3">Мощность (Вт)</h5>
+                {% set selected_powers = request.args.getlist('power') %}
+                {% for power in all_powers %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="power" value="{{ power }}"
+                               id="power_{{ loop.index }}"
+                               {% if power in selected_powers %}checked{% endif %}>
+                        <label class="form-check-label" for="power_{{ loop.index }}">
+                            {{ power }} W
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <h5 class="mt-3">Тип блока питания</h5>
+                {% set selected_types = request.args.getlist('type') %}
+                {% for type in all_types %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="type" value="{{ type }}"
+                               id="type_{{ loop.index }}"
+                               {% if type in selected_types %}checked{% endif %}>
+                        <label class="form-check-label" for="type_{{ loop.index }}">
+                            {{ type }}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary mt-3">Применить фильтр</button>
+            </form>
+        </div>
+
+        <!-- Список товаров -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for psu in psus %}
+                    {% set specs %}
+                    <ul class="list-unstyled">
+                        <li><strong>Сертификат:</strong> {{ psu.certificate }}</li>
+                        <li><strong>Мощность:</strong> {{ psu.power }} W</li>
+                        <li><strong>Тип БП:</strong> {{ psu.type }}</li>
+                    </ul>
+                    {% endset %}
+
+                    {% with
+                        id=psu.id,
+                        name=psu.name,
+                        price=psu.price,
+                        images=psu.images,
+                        specs=specs,
+                        product_type='psu',
+                        in_cart=psu.id in cart_ids
+                    %}
+                        {% include "base_product.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

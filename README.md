@@ -35,7 +35,7 @@ project/
 │
 ├── order/                          # Модуль заказов
 │   ├── order.py                    # Класс и конструктор заказа
-│   ├── routes.py                   # Маршрутизатор
+│   └── routes.py                   # Маршрутизатор
 │  
 │
 ├── products/                       # Каталог товаров
@@ -51,7 +51,7 @@ project/
 │   |   ├── CPU.py                 # Спецификация CPU
 │   │   └── GPU.py                 # Спецификация GPU
 |   |   └── ...                    # Другие спецификации
-│   ├── BaseSpecification.py       # Абстрактный класс
+│   └── BaseSpecification.py       # Абстрактный класс
 │    
 │   
 ├── templates/                     # Каталог HHTML страниц

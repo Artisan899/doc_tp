@@ -2,7 +2,7 @@
 
 ---
 
-## Модуль продуктов: `products/base_product.py`, `products/CPU/cpu.py`, `products/CPU/cpu_factory.py`, `products/GPU/gpu.py`, `products/GPU/gpu_factory.py` и `products/routes.py`
+## Модуль продуктов: `base_product.py`, `CPU/cpu.py`, `CPU/cpu_factory.py`, `GPU/gpu.py`, `GPU/gpu_factory.py` и `proutes.py`
 
 Модули реализуют **логику описания, загрузки и отображения компьютерных комплектующих** (CPU и GPU), включая:
 - описание базовых и конкретных классов продуктов,

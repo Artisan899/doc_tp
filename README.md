@@ -79,3 +79,15 @@ project/
     ├── services.py                # Класс управления пользователями (рассширяюет класс User)
     └── valodators.py              # Валидация страницы регистрации
 ```
+##  Подробнее
+
+- [cart (корзина](cart/README_cart.md)
+- [data](data/README_data.md)
+- [home](home/README_home.md)
+- [order](order/README_order.md)
+- [products](products/README_products.md)
+- [service](service/README_service.md)
+- [tests](tests/README_tests.md)
+- [user](user/README_user.md)
+
+---

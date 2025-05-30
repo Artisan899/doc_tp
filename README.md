@@ -86,7 +86,7 @@ project/
 - [home](home/README_home.md)
 - [order](order/README_order.md)
 - [products](products/README_products.md)
-- [service](service/README_service.md)
+- [service](service/README_sevice.md)
 - [tests](tests/README_tests.md)
 - [user](user/README_user.md)
 

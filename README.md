@@ -82,7 +82,7 @@ project/
 ##  Подробнее
 
 - [cart](cart/README_cart.md)
-- [data](data/README_data.md)
+- [data](data/README_DATA.md)
 - [home](home/README_home.md)
 - [order](order/README_order.md)
 - [products](products/README_products.md)

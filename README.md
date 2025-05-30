@@ -81,7 +81,7 @@ project/
 ```
 ##  Подробнее
 
-- [cart (корзина](cart/README_cart.md)
+- [cart](cart/README_cart.md)
 - [data](data/README_data.md)
 - [home](home/README_home.md)
 - [order](order/README_order.md)
